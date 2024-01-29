@@ -1,0 +1,160 @@
+body {
+display: block;
+overflow-x:hidden;
+}
+
+nav {
+  background-color: white;
+}
+
+nav ul li a {
+  color: #a9a9a9;
+  font-size: 22px;
+  margin: auto 10px;
+}
+nav ul li a:hover {
+  color: #683aa4;
+}
+
+section {
+padding-top: 20px;
+padding-bottom: 50px;
+}
+
+section h1{
+text-transform: uppdercase;
+font-weight: 900;
+color: #683aa4;
+text-align: left;
+margin-bottom: 20px;
+}
+
+section p {
+font-size: 16px;
+font-weight: 300;
+}
+
+#hero .col{
+justify-content: center;
+flex-direction: column;
+display: flex;
+}
+
+# hero .img-col {
+justify-content: flex-end;
+margin-top: 20px}
+
+
+#hero .card {
+  border: 0;
+  text-align: center;
+  float: right;
+}
+
+#hero .icon {
+  width: 300px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.center {
+text-align: center;}
+
+#services .projects {
+  margin-bottom: 50px;
+}
+
+
+body{
+	.contact{
+	padding: 4%;
+
+	}
+	.col-md-3{
+		background: #ff9933;
+		padding: 4%;
+		border-top-left-radius: 0.5rem;
+		border-bottom-left-radius: 0.5rem;
+	}
+	.contact-info{
+		margin-top:10%;
+	}
+	.contact-info img{
+		margin-bottom: 15%;
+	}
+	.contact-info h2{
+		margin-bottom: 10%;
+	}
+	.col-md-9{
+		background: #fff;
+		padding: 3%;
+		border-top-right-radius: 0.5rem;
+		border-bottom-right-radius: 0.5rem;
+	}
+	.contact-form label{
+		font-weight:600;
+	}
+	.contact-form button{
+		font-weight: 600;
+		width: 25%;
+	}
+	.contact-form button:focus{
+		box-shadow:none;
+
+	}
+	.signup button {
+	    font-weight: 600;
+		width: 25%;
+	}
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+  border: 1px solid #ced4da; /* Add border styling */
+  border-radius: 5px; /* Add border-radius for rounded corners */
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.form-newdog {
+  width: 100%;
+  padding: 15px;
+  margin: auto;
+  border: 1px solid #ced4da; /* Add border styling */
+  border-radius: 5px; /* Add border-radius for rounded corners */
+}
+.dog-card {
+    margin-bottom: 20px;
+    padding: 20px;
+  }
+}
+
+
+
+
+
+
+
+

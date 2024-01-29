@@ -1,0 +1,168 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+%}
+<section id="hero">
+  <!-- welcome -->
+  <div class="jumbotron d-flex flex-column ">
+  <h1 align="center">Hello {{user.first_name}}</h1>
+  <p>Welcome to your home page. Please make sure your information is up-to-date.</p>
+      <br>
+      <br>
+      <div class="mt-auto justify-content-end">
+        <a class="btn btn-primary btn-sm" href="#browse" role="button">View your dogs</a>
+        <a class="btn btn-primary btn-sm" href="#add" role="button">New a new dog</a>
+      </div>
+
+</div>
+  </section>
+<!-- end welcome -->
+  <!-- display user's dogs -->
+<section id="browse">
+  <h2>Your Dogs</h2>
+  {% for dog in user.dogs %}
+  <div class="card mt-4 mb-4">
+    <h5 class="card-header">{{dog.name}}</h5>
+  <div class="card-body">
+    <ul class="list-group list-group-flush" id="dogs" style="text-align: left">
+      <li class="list-group-item">{{dog.sex.capitalize()}}
+      {% if dog.breed %}
+          {{ dog.breed }}
+          {% endif %}
+      </li>
+      <li class="list-group-item">
+        Birthday: {{ dog.birthday.strftime('%B %d, %Y') }}
+        </li>
+        <li class="list-group-item">
+          Bordatella: {{dog.bordatella.strftime('%B %d, %Y') }}
+        </li>
+      <li class="list-group-item">
+          Rabies: {{dog.rabies.strftime('%B %d, %Y') }}
+        </li>
+      <li class="list-group-item">
+          DHPP: {{dog.dhpp.strftime('%B %d, %Y') }}
+        </li>
+      <li class="list-group-item">
+        {% if dog.sex == "female" %} Spayed?
+        {% else %} Neutered?
+        {% endif %}
+        {%if dog.altered == "true" %}
+          Yes
+        {% else %}
+          No
+          {% endif %}
+      </li>
+      <li class="list-group-item">
+        Last negative fecal test:
+        {{dog.fecal_test.strftime('%B %d, %Y')}}
+      </li>
+      {% if dog.notes %}
+      <li class="list-group-item">
+        Notes: {{dog.notes}}
+      </li>
+      {% else %}
+      <li class="list-group-item"> No additional notes on file </li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+ {% endfor %}
+</section>
+  <!-- end display user's dogs -->
+<section id="add">
+  <!-- add dog form -->
+     <div class ="row">
+     <!-- add new dog form -->
+     <h2>Add A Dog</h2>
+  <form class="form-newdog" method="POST" enctype="multipart/form-data">
+    <div class="row">
+    <div class="col">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" id="name" name="name" placeholder="Enter your dog's name" required>
+  </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+    <label for="birthday">Birthday (estimate ok)</label>
+    <input type="date" class="form-control" id="birthday" name="birthday" required>
+  </div>
+    </div>
+    </div>
+      <div class="row">
+    <div class="col">
+    <div class="form-group">
+    <label for="breed">Breed</label>
+    <input type="text" class="form-control" id="breed" name="breed" placeholder="Enter your dog's breed" required>
+  </div>
+    </div>
+    <div class="col">
+  <div class="form-group">
+    <label for="sex">Sex</label>
+       <select class="custom-select" id="sex" name="sex" required>
+        <option selected disabled></option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+  </div>
+    </div>
+      </div>
+    <h4>Vaccines and Health</h4>
+    <p>Please enter the date of your dog's most recent vaccines and email records to records@raincitydog.com. We must verify vaccines before your dog attends daycare, boarding, or the evaluation. </p>
+    <div class="row">
+    <div class="col">
+    <div class="form-group">
+    <label for="bordatella">Bordatella (every 6 months)</label>
+    <input type="date" class="form-control" id="bordatella" name="bordatella" required>
+  </div>
+    </div>
+    <div class="col">
+    <div class="form-group">
+    <label for="rabies">Rabies (every 3 years)</label>
+    <input type="date" class="form-control" id="rabies" name="rabies" required>
+  </div>
+    </div>
+    <div class="col">
+    <div class="form-group">
+    <label for="dhpp">DHPP (every 3 years)</label>
+    <input type="date" class="form-control" id="dhpp" name="dhpp" required>
+  </div>
+    </div>
+   <!-- </div>
+    <div class="col">
+     <div class="form-group">
+    <label for="leptospirosis">Leptospirosis (optional)</label>
+    <input type="date" class="form-control" id="leptospirosis" name="leptospirosis">
+  </div>
+    </div>
+    </div> -->
+    <div class="row">
+    <div class="col">
+    <div class="form-group">
+    <label for="altered">Spayed/Neutered</label>
+      <select class="custom-select" id="altered" name="altered" required>
+        <option selected disabled></option>
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+      </select>
+    </div>
+    </div>
+    <div class="col">
+     <div class="form-group">
+    <label for="fecalTest">Negative Fecal Test (every 12 months)</label>
+    <input type="date" class="form-control" id="fecalTest" name="fecalTest" required>
+  </div>
+    </div>
+    </div>
+    <h4>Additional</h4>
+    <div class="form-group">
+    <label for="notes">Additional instructions</label>
+    <textarea class="form-control" id="notes" name="notes" placeholder="Enter any additional information we need to know about your dog" rows="3"></textarea>
+  </div>
+    <div align="left">
+    <button type="submit" class="btn btn-primary">Add Dog</button>
+  </div>
+</form>
+  </div>
+    </section>
+<!-- end add new dog from -->
+
+{% endblock %}

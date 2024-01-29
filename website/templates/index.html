@@ -1,0 +1,271 @@
+{% extends "base.html" %} {% block title %}Rain City Dog{% endblock %} {% block content
+%}
+
+<section id="hero">
+
+  <!-- quick about us, services offered -->
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h1>Rain City Dog</h1>
+        <p>We are Seattle's premier dog day care, offering exceptional dog day care, boarding and grooming services in downtown Seattle. Our experienced team prioritizes dog health and happiness.</p>
+      </div>
+    <div class="col img-col">
+      <img src="./static/img/pug.jpg" alt="pug" class="img-fluid">
+    </div>
+    </div>
+    <!-- end quick about us statement, services offered -->
+
+  <!-- Features, 3 cards, why us? -->
+    <div class="row cards">
+      <h1 class="center"> Why Rain City Dog</h1>
+      <div class="col-md-4 d-flex justify-content-center">
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <img src="./static/img/monitoring.png" class="icon" alt="24 Hour Monitoring"/>
+            <h5 class="card-title">24 hour Monitoring</h5>
+            <p class="card-text">Our professionally trained staff are all dog lovers dedicated to providing dogs with a safe, fun, and loving environment. With years of experience, we can handle any situation. We are proud to provide pups with a home away from home.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 d-flex justify-content-center">
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <img src="./static/img/convenientDog.png" class="icon" alt="Convenient Care"/>
+            <h5 class="card-title">Convenient Flexible Care</h5>
+            <p class="card-text">Located in the heart of South Lake Union, we are an easy stop before and after work. Extended hours provide flexible pick up times and on-line scheduling means that you have access to services when you need them.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 d-flex justify-content-center">
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <img src="./static/img/safetyPugs.png" class="icon" alt="High Safety Standards"/>
+            <h5 class="card-title">High Safety Standards</h5>
+            <p class="card-text">We prioritize safety. The play spaces are regularly sanitized and dogs must be healthy and vaccinated in order to participate in our services. Furthermore, dog behaviors are monitored closely to ensure a happy stress-free play group for all dogs. We utilize proper dog handling practices and are committed to upholding the highest safety standards at our facility. </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- end features, 3 cards  why us? -->
+
+  <!-- Carousel wrapper, reviews -->
+  <div id="carouselExampleAutoplaying" class="carousel slide text-center carousel-dark" data-bs-ride="carousel">
+    <h1 class="center"> What Customers Say About Us</h1>
+
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img class="rounded-circle shadow-1-strong mb-4"
+          src="./static/img/reviewer1.png" alt="reviewer 1"
+          style="width: 150px;" />
+
+        <div class="row d-flex justify-content-center">
+        <div class="col-lg-8">
+          <h5 class="mb-3">Ella G.</h5>
+          <p>Jan 2024</p>
+          <p class="text-muted">
+             The staff at Rain City Dog are amazing and always take the best care of my dog. Everyone there is a true dog lover.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="carousel-item">
+      <img class="rounded-circle shadow-1-strong mb-4"
+        src="./static/img/reviewer2.png" alt="reviewer2"
+        style="width: 150px;" />
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-8">
+          <h5 class="mb-3">John D</h5>
+          <p>Jan 2024</p>
+          <p class="text-muted">
+            <i class="fas fa-quote-left pe-2"></i>
+            My dog loves going to Rain City Dog. They treat him like one of the family and he comes home exhausted. He probably would go every day if he could.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="carousel-item">
+      <img class="rounded-circle shadow-1-strong mb-4"
+        src="./static/img/reviewer3.png" alt="reviewer 3" style="width: 150px;" />
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-8">
+          <h5 class="mb-3">Anna Z.</h5>
+          <p>Jan 2024</p>
+          <p class="text-muted">
+            <i class="fas fa-quote-left pe-2"></i>
+            I am so glad I found Rain City Dog. When I go on vacation, my dog goes on vacation too. They pamper her and with the in house grooming she comes home cleaner than when I dropped her off.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+    data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+    data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+    </div>
+<!-- end Carousel wrapper reviews -->
+<!-- Services -->
+<section id="services">
+<div class="container">
+  <div class="row align-items-center services">
+    <div class="col">
+      <h1 class="center">Services</h1>
+      <p>We offer premier daycare, boarding, and grooming services. At Rain City Dog, we value safety, health and fun for every dog.  </p>
+    </div>
+  </div>
+
+  <div class="row align-items-center">
+    <div class="col">
+      <div class="card mb-3">
+        <a href="/daycare.html">
+        <img src="./static/img/daycare.png" class="card-img-top" alt="Daycare">
+        </a>
+        <div class="card-body">
+          <h5 class="card-title">Daycare</h5>
+          <p class="card-text">Our daycare provides a supervised, secure, and loving environment where your dog can socialize and play all day. We have indoor and outdoor play areas and dogs of all breeds and sizes are welcome. Daycare is offered seven days a week. </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card mb-3">
+        <a href="#">
+        <img src="./static/img/sleeping.png" class="card-img-top" alt="Boarding">
+        </a>
+        <div class="card-body">
+          <h5 class="card-title">Boarding</h5>
+          <p class="card-text">Boarding services are offered to daycare clients. Dogs are boarded crate free and a staff member is on-site 24/7. For safety reasons, we do not board dogs unfamiliar to us.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row align-items-center">
+    <div class="col">
+      <div class="card mb-3">
+         <a href="#">
+        <img src="./static/img/grooming.png" class="card-img-top" alt="Grooming">
+         </a>
+        <div class="card-body">
+          <h5 class="card-title">Grooming</h5>
+          <p class="card-text">Whether your dog needs a nail trip or a full hair cut, our expert groomers have you covered. Grooming can be scheduled during daycare or boarding or a la cart.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card mb-3">
+         <a href="/pricing.html">
+        <img src="./static/img/walking.png" class="card-img-top" alt="walking">
+         </a>
+        <div class="card-body">
+          <h5 class="card-title">Add Ons</h5>
+          <p class="card-text">For pups that want a little extra, we have options for extra walks, treats, play time, or cuddle time. These can be added on to a daycare or boarding stay.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+  <!-- end Services -->
+
+  <!-- Enrollment steps-->
+  <h1 class="center">How to Start</h1>
+<div class="card-group">
+
+  <div class="card">
+    <div class="card-body">
+      <svg  xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#683aa4r" class="bi bi-person-add" viewBox="0 0 16 16">
+  <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
+  <path d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z"/>
+</svg>
+      <h5 class="card-title">1. Create A Profile</h5>
+      <p class="card-text">Register with your email address and complete the dog questionare. </p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
+  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+</svg>
+      <h5 class="card-title">2. Book an evaluation</h5>
+      <p class="card-text">Submit your dogs vaccine records and book a new dog evaluation online or through our front desk.</p>
+    </div>
+  </div>
+  <div class="card">
+
+    <div class="card-body">
+      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16">
+  <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
+  <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0M7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0"/>
+</svg>
+      <h5 class="card-title">3. New Dog Evaluation</h5>
+      <p class="card-text">Your dog wil spend 1 day in our care to ensure that he/she is happy at our center.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+  <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
+  <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
+</svg>
+      <h5 class="card-title">4. Pick a plan and make reservations</h5>
+      <p class="card-text">If we are a good fit for your dog, use our online portal to book daycare and boarding sessions. </p>
+    </div>
+  </div>
+</div>
+
+
+  <!-- end Enrollment stepper-->
+<!-- location -->
+  <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+    <h1 class="center">Contact Us</h1>
+      <div class="col-12 col-md-5 mt-3 mb-3 pe-md-4">
+        <img src="./static/img/map.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="400" height="400" loading="lazy" style="margin-left: -100px;">
+      </div>
+      <div class="col-12 col-md-5 mt-3 mb-3">
+
+        <h3> Location</h3>
+        <address>
+            <strong>Rain City Dog</strong><br>
+            123 45th Street<br>
+            Seattle,WA 98109<br>
+            <abbr title="Phone">P:</abbr> (206) 789-1010
+          </address>
+        <h3> Email</h3>
+         <address>
+            <a href="mailto:#">hello@raincitydog.com</a>
+          </address>
+        <h3>Daycare Hours</h3>
+        <address>
+            <p> Monday - Friday: 7 am to 7 pm <br>
+          Saturday and Sunday: 8 am to 5 pm <br>
+          Open everday day for daycare except Christmas and New Years.
+          </address>
+      </div>
+    </div>
+
+  <!-- end location -->
+
+</div>
+</section>
+
+
+
+{% endblock %}
+
+</body>
+</html>

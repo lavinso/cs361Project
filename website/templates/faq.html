@@ -1,0 +1,86 @@
+{% extends "base.html" %} {% block title %}Rain City Dog{% endblock %} {% block content
+%}
+<section id="hero">
+    <div class="row cards mt-4 p-4 p-md-5 mb-4">
+    <h1 class="center"> Frequently Asked Questions</h1>
+<div class="accordion" id="accordionExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        <strong>What is dog daycare?</strong>
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        Dog daycare is a space where dogs can socialize and play while their owners are away during the day.
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        <strong>What vaccines are needed to attend daycare/boarding?</strong>
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+      Up-to-date vaccines ensure the safety for all dogs at the facility. The following vaccines are required:
+          <ul>
+              <li>Bordatella (AKA kennel cough) must be renewed every 6 months</li>
+              <li>Rabies for dogs four months old and older</li>
+              <li>DHPP</li>
+              <li>Leptospirosis (recommended)</li>
+          </ul>
+          Additionally, dogs must have:
+          <ul>
+              <li>Proof of negative fecal test every 12 months</li>
+              <li>Record of spay/neuter by 8 months of age</li>
+          </ul>
+
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          <strong>What is the difference between a full day of care and a half day?</strong>
+      </button>
+    </h2>
+    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        A half day is up to four hours of care. Dogs enrolled in the AM half day must be picked up by 1 pm and have attended a maximum of 4 hours of care. Dogs enrolled in PM half day must be picked up by 6 pm and have attended a maximum of 4 hours of care. Full day care can span the entire length of our open hours (from 7 am to 7 pm on weekdays and 8 am to 5 pm on weekends).
+      </div>
+    </div>
+  </div>
+    <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
+          <strong>How long do I have to pick up my dog from daycare?</strong>
+      </button>
+    </h2>
+    <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        There is an after hours fee that applies when dogs are dropped off or picked up outside of regular hours. Though we operate 24/7, staffing is limited during off hours. Monthly daycare clients are exempt and we wave fees for healthcare workers. If you anticipate off hours needs, please notify us in advance. Dogs remaining past 9:30 pm may be moved to boarding with associated fees.
+      </div>
+    </div>
+  </div>
+     <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
+          <strong>How old do the dogs need to be to attend daycare or boarding?</strong>
+      </button>
+    </h2>
+    <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        We are happy to take dogs of all ages. Puppies can join us at 4-6 months, once they are fully vaccinated. If they are older than 8 months, they must have a record of spay/neuter. Senior dogs are also welcome and are placed in a lower energy room if necessary.
+      </div>
+    </div>
+  </div>
+
+</div>
+    </div>
+</section>
+{% endblock %}
+
+</body>
+</html>

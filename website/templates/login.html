@@ -1,0 +1,39 @@
+{% extends "base.html" %} {% block title %}Login{% endblock %} {% block content
+%}
+<section>
+  <div class="mt-0 p-2 p-md-3 mb-2">
+  </div>
+<form class="form-signin" method="POST">
+  <div class="text-center ">
+<img class="mb-4 mx-auto" src="/static/img/logo2.png" alt="logo" width="72" height="72">
+    <h5 class="center"> Rain City Dog</h5>
+    <br>
+  <h1 class="center">Login</h1>
+    </div>
+  <div class="form-group" >
+    <label for="email">Email Address</label>
+    <input
+      type="email"
+      class="form-control"
+      id="email"
+      name="email"
+      placeholder="Enter email"
+    />
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input
+      type="password"
+      class="form-control"
+      id="password"
+      name="password"
+      placeholder="Enter password"
+    />
+  </div>
+  <br />
+  <button type="submit" class="btn btn-primary">Login</button>
+</form>
+ <div class="mt-0 p-3 p-md-5 mb-4">
+  </div>
+</section>
+{% endblock %}
