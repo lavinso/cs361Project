@@ -61,7 +61,6 @@ def home():
         bordatella = datetime.strptime(request.form.get('bordatella'), '%Y-%m-%d').date()
         rabies = datetime.strptime(request.form.get('rabies'), '%Y-%m-%d').date()
         dhpp = datetime.strptime(request.form.get('dhpp'), '%Y-%m-%d').date()
-        # leptospirosis = datetime.strptime(request.form.get('leptospirosis'), '%Y-%m-%d').date()
         altered = request.form.get('altered')
         fecal_test = datetime.strptime(request.form.get('fecalTest'), '%Y-%m-%d').date()
         notes = request.form.get('notes')

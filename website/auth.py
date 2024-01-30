@@ -4,9 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
 
-
 auth = Blueprint('auth', __name__)
-
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
@@ -26,7 +24,6 @@ def login():
             flash('No profile matches that email.', category='error')
 
     return render_template("login.html", user=current_user)
-
 
 @auth.route('/logout')
 @login_required

@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
 %}
 <section id="hero">
-  <!-- welcome -->
+<!-- welcome -->
   <div class="jumbotron d-flex flex-column ">
   <h1 align="center">Hello {{user.first_name}}</h1>
   <p>Welcome to your home page. Please make sure your information is up-to-date.</p>
@@ -9,13 +9,13 @@
       <br>
       <div class="mt-auto justify-content-end">
         <a class="btn btn-primary btn-sm" href="#browse" role="button">View your dogs</a>
-        <a class="btn btn-primary btn-sm" href="#add" role="button">New a new dog</a>
+        <a class="btn btn-primary btn-sm" href="#add" role="button">Add a new dog</a>
       </div>
 
 </div>
   </section>
 <!-- end welcome -->
-  <!-- display user's dogs -->
+<!-- display user's dogs -->
 <section id="browse">
   <h2>Your Dogs</h2>
   {% for dog in user.dogs %}
@@ -66,11 +66,10 @@
 </div>
  {% endfor %}
 </section>
-  <!-- end display user's dogs -->
+<!-- end display user's dogs -->
 <section id="add">
-  <!-- add dog form -->
      <div class ="row">
-     <!-- add new dog form -->
+<!-- add new dog form -->
      <h2>Add A Dog</h2>
   <form class="form-newdog" method="POST" enctype="multipart/form-data">
     <div class="row">
@@ -126,14 +125,6 @@
     <input type="date" class="form-control" id="dhpp" name="dhpp" required>
   </div>
     </div>
-   <!-- </div>
-    <div class="col">
-     <div class="form-group">
-    <label for="leptospirosis">Leptospirosis (optional)</label>
-    <input type="date" class="form-control" id="leptospirosis" name="leptospirosis">
-  </div>
-    </div>
-    </div> -->
     <div class="row">
     <div class="col">
     <div class="form-group">
