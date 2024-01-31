@@ -112,7 +112,9 @@
       <li class="nav-item"><a href="/boarding.html" class="nav-link px-2 text-muted">Boarding</a></li>
       <li class="nav-item"><a href="/grooming.html" class="nav-link px-2 text-muted">Grooming</a></li>
         <li class="nav-item"><a href="/contact.html" class="nav-link px-2 text-muted">Contact Us</a></li>
-        <li class="nav-item"> <a href="/sign-up"><span class="btn btn-outline-success me-2">Register</span></a></li>
+      {% if not user.is_authenticated %}
+      <li class="nav-item"> <a href="/sign-up"><span class="btn btn-outline-success me-2">Register</span></a></li>
+      {% endif %}
     </ul>
     <p class="text-center text-muted">© 2024 Rain City Dog</p>
   </footer>
@@ -128,7 +130,7 @@
       <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
 {% block javascript %}
     <!-- script for delete note -->
     <script type="text/javascript">

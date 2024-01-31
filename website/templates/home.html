@@ -8,7 +8,9 @@
       <br>
       <br>
       <div class="mt-auto justify-content-end">
+        {% if user.dogs %}
         <a class="btn btn-primary btn-sm" href="#browse" role="button">View your dogs</a>
+        {% endif %}
         <a class="btn btn-primary btn-sm" href="#add" role="button">Add a new dog</a>
       </div>
 
@@ -16,8 +18,10 @@
   </section>
 <!-- end welcome -->
 <!-- display user's dogs -->
+{% if user.dogs %}
 <section id="browse">
   <h2>Your Dogs</h2>
+  {% endif %}
   {% for dog in user.dogs %}
   <div class="card mt-4 mb-4">
     <h5 class="card-header">{{dog.name}}</h5>

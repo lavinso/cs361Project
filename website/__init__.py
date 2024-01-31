@@ -15,12 +15,11 @@ def create_app():
 
     from .views import views
     from .auth import auth
+
     from .models import User, Dog
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
-
-
 
     with app.app_context():
         db.create_all()

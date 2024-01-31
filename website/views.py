@@ -10,7 +10,6 @@ from flask import redirect, url_for
 views = Blueprint('views', __name__)
 
 # general views without login
-
 @views.route('/')
 def index():
     return render_template("index.html", user=current_user)
@@ -48,7 +47,6 @@ def contact():
         return render_template("contact.html", user=current_user)
 
 # views requiring login
-
 @views.route('/home', methods=['GET', 'POST'])
 @login_required
 def home():
@@ -89,7 +87,6 @@ def home():
             return redirect(url_for('views.home'))
 
     return render_template("home.html", user=current_user)
-
 
 @views.route('/delete-note', methods=['POST'])
 def delete_note():
