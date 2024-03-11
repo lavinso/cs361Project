@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from .models import Dog
 from . import db
 import json
+import zmq
 from datetime import datetime, date
 from flask import redirect, url_for
 
@@ -75,27 +76,67 @@ def home():
         if len(notes) > 10000:
             flash('Additional notes are too long!', category='error')
         else:
-
             #provide schema for new dog
             new_dog = Dog(name=name, user_id=current_user.id, birthday=birthday, breed=breed, sex=sex,
-                        bordatella=bordatella, rabies=rabies, dhpp=dhpp, #leptospirosis=leptospirosis,#
+                        bordatella=bordatella, rabies=rabies, dhpp=dhpp,
                         altered=altered, fecal_test=fecal_test, notes=notes)
             # add new dog
             db.session.add(new_dog)
             db.session.commit()
+
             flash('Dog added!', category='success')
             return redirect(url_for('views.home'))
 
+    # Prepare vaccine records for each dog
+    vaccine_records = []
+    if current_user.dogs:
+        for dog in current_user.dogs:
+            record = {
+                "name": dog.name,
+                "bordatella": dog.bordatella.strftime('%Y-%m-%d'),
+                "rabies": dog.rabies.strftime('%Y-%m-%d'),
+                "dhpp": dog.dhpp.strftime('%Y-%m-%d'),
+                "altered": dog.altered,
+                "fecal_test": dog.fecal_test.strftime('%Y-%m-%d')
+                }
+            vaccine_records.append(record)
+
+        # Write vaccine records to JSON file
+        with open("vaccineRecords.JSON", "w") as outfile:
+            json.dump(vaccine_records, outfile)
+
+        # Send vaccine records to microservice
+        context = zmq.Context()
+
+        #  Socket to talk to server
+        print("Connecting to local server…")
+        socket = context.socket(zmq.REQ)
+        socket.connect("tcp://localhost:5555")
+
+        f = open('vaccineRecords.JSON')
+
+        data = json.load(f)
+
+        print(f"Sending request... {data}")
+        socket.send_json(data)
+
+        #  Get the reply.
+        message = socket.recv().decode()
+        print(f"Received reply: {message}")
+
+        # flash reply on home screen
+        flash(message, 'success')
+
     return render_template("home.html", user=current_user)
 
-@views.route('/delete-note', methods=['POST'])
-def delete_note():
-    note = json.loads(request.data) # this function expects a JSON from the INDEX.js file
-    noteId = note['noteId']
-    note = Note.query.get(noteId)
-    if note:
-        if note.user_id == current_user.id:
-            db.session.delete(note)
+@views.route('/delete-dog', methods=['POST'])
+def delete_dog():
+    data = request.json  # this function expects a JSON from the INDEX.js file
+    dog_id = data['dogId']
+    print(dog_id, "dog_id")
+    dog = Dog.query.get(dog_id)
+    if dog and dog.user_id == current_user.id:
+            db.session.delete(dog)
             db.session.commit()
 
     return jsonify({})

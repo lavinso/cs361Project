@@ -1,8 +1,9 @@
-function deleteNote(noteId) {
-  fetch("/delete-note", {
+function deleteDog(dogId) {
+  console.log("Deleting dog with ID:", dogId);
+  fetch("/delete-dog", {
     method: "POST",
-    body: JSON.stringify({ noteId: noteId }),
+    body: JSON.stringify({ dogId: dogId }),
   }).then((_res) => {
-    window.location.href = "/";
+    window.location.href = "/home";
   });
 }
