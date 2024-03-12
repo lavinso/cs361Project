@@ -43,11 +43,7 @@ def sign_up():
         if error:
             flash(error, category='error')
         else:
-            new_user = User(email=email, first_name=first_name, last_name=last_name,
-                            password=generate_password_hash(password1, method='pbkdf2:sha256'))
-            db.session.add(new_user)
-            db.session.commit()
-            login_user(new_user, remember=True)
+            create_user(email, first_name, last_name, password1)
             flash('Account created! You are now logged in.', category='success')
             return redirect(url_for('views.home'))
 
@@ -68,3 +64,10 @@ def validate_signup_form(email, first_name, last_name, password1, password2):
         return 'Passwords don\'t match.'
     elif len(password1) < 7:
         return 'Password must be at least 7 characters.'
+
+def create_user(email, first_name, last_name, password):
+        new_user = User(email=email, first_name=first_name, last_name=last_name,
+                        password=generate_password_hash(password, method='pbkdf2:sha256'))
+        db.session.add(new_user)
+        db.session.commit()
+        login_user(new_user, remember=True)
