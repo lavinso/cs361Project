@@ -2,7 +2,12 @@
 document.addEventListener('click', function(event) {
     if (event.target.classList.contains('delete-dog-btn')) {
         const dogId = event.target.getAttribute('data-dog-id');
-        deleteDog(dogId);
+
+        // Show a confirmation dialog
+        if (confirm(`Are you sure you want to delete? This action cannot be undone.`)) {
+            // Call the deleteDog function
+            deleteDog(dogId);
+        }
     }
 });
 
