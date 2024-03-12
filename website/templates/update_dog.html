@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}Update Dog{% endblock %}
+{% block content%}
+
+<!-- Update dog form -->
+     <h2>Update {{dog.name}}</h2>
+  <form class="form-newdog" method="POST" enctype="multipart/form-data">
+    <div class="row">
+    <div class="col">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" id="name" name="name" placeholder="Enter your dog's name" value="{{ dog.name }}" required>
+  </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+    <label for="birthday">Birthday (estimate ok)</label>
+    <input type="date" class="form-control" id="birthday" name="birthday" value="{{ dog.birthday }}" required>
+  </div>
+    </div>
+    </div>
+      <div class="row">
+    <div class="col">
+    <div class="form-group">
+    <label for="breed">Breed</label>
+    <input type="text" class="form-control" id="breed" name="breed" placeholder="Enter your dog's breed" value="{{ dog.breed }}" required>
+  </div>
+    </div>
+    <div class="col">
+  <div class="form-group">
+    <label for="sex">Sex</label>
+       <select class="custom-select" id="sex" name="sex" required>
+         <option value="male" {% if dog.sex =="male" %} selected {% endif %}>Male</option>
+         <option value="female" {% if dog.sex =="female" %} selected {% endif %}>Female</option>
+      </select>
+  </div>
+    </div>
+      </div>
+    <h4>Vaccines and Health</h4>
+    <p>Please enter the date of your dog's most recent vaccines and email records to records@raincitydog.com. We must verify vaccines before your dog attends daycare, boarding, or the evaluation. </p>
+    <div class="row">
+    <div class="col">
+    <div class="form-group">
+    <label for="bordatella">Bordatella (every 6 months)</label>
+    <input type="date" class="form-control" id="bordatella" name="bordatella" value="{{ dog.bordatella }}" required>
+  </div>
+    </div>
+    <div class="col">
+    <div class="form-group">
+    <label for="rabies">Rabies (every 3 years)</label>
+    <input type="date" class="form-control" id="rabies" name="rabies" value="{{ dog.rabies }}" required>
+  </div>
+    </div>
+    <div class="col">
+    <div class="form-group">
+    <label for="dhpp">DHPP (every 3 years)</label>
+    <input type="date" class="form-control" id="dhpp" name="dhpp" value="{{ dog.dhpp }}" required>
+  </div>
+    </div>
+    <div class="row">
+    <div class="col">
+    <div class="form-group">
+    <label for="altered">Spayed/Neutered</label>
+      <select class="custom-select" id="altered" name="altered" required>
+        <option selected disabled></option>
+          <option value="true" {% if dog.altered == "true" %} selected {% endif %}>Yes</option>
+          <option value="false" {% if dog.altered == "false" %} selected {% endif %}>No</option>
+      </select>
+    </div>
+    </div>
+    <div class="col">
+     <div class="form-group">
+    <label for="fecalTest">Negative Fecal Test (every 12 months)</label>
+    <input type="date" class="form-control" id="fecalTest" name="fecalTest" value="{{ dog.fecal_test }}" required>
+  </div>
+    </div>
+    </div>
+    <h4>Additional</h4>
+    <div class="form-group">
+    <label for="notes">Additional instructions</label>
+    <textarea class="form-control" id="notes" name="notes" placeholder="Enter any additional information we need to know about your dog" rows="3"></textarea>
+  </div>
+    <div align="left">
+    <button type="submit" class="btn btn-primary">Update Dog</button>
+  </div>
+    </div>
+</form>
+<!-- end updated dog from -->
+{% endblock %}

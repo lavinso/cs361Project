@@ -140,3 +140,30 @@ def delete_dog():
             db.session.commit()
 
     return jsonify({})
+
+@views.route('/update-dog/<int:dog_id>', methods=['GET', 'POST'])
+@login_required
+def update_dog(dog_id):
+    dog = Dog.query.get_or_404(dog_id)
+
+    if request.method == 'POST':
+        # Update dog's information based on the submitted form data
+        dog.name = request.form.get('name')
+        dog.birthday = datetime.strptime(request.form.get('birthday'), '%Y-%m-%d').date()
+        dog.breed = request.form.get('breed')
+        dog.sex = request.form.get('sex')
+        dog.bordatella = datetime.strptime(request.form.get('bordatella'), '%Y-%m-%d').date()
+        dog.rabies = datetime.strptime(request.form.get('rabies'), '%Y-%m-%d').date()
+        dog.dhpp = datetime.strptime(request.form.get('dhpp'), '%Y-%m-%d').date()
+        dog.altered = request.form.get('altered')
+        dog.fecal_test = datetime.strptime(request.form.get('fecalTest'), '%Y-%m-%d').date()
+        dog.notes = request.form.get('notes')
+
+        # Commit changes to the database
+        db.session.commit()
+
+        flash('Dog information updated successfully!', category='success')
+        return redirect(url_for('views.home'))
+
+    # Render the update form with the dog's current information
+    return render_template('update_dog.html', dog=dog, user=current_user)
