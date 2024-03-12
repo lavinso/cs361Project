@@ -6,7 +6,7 @@ document.addEventListener('click', function(event) {
     }
 });
 
-// Event listenter for update-dog-btn
+// Event listener for update-dog-btn
 document.addEventListener('click', function(event) {
     if (event.target.classList.contains('update-dog-btn')) {
         const dogId = event.target.getAttribute('data-dog-id');
@@ -18,7 +18,6 @@ document.addEventListener('click', function(event) {
 
 // Function to delete a dog
 function deleteDog(dogId) {
-    console.log("Deleting dog with ID:", dogId);
     fetch("/delete-dog", {
         method: "POST",
         headers: {
@@ -26,7 +25,8 @@ function deleteDog(dogId) {
         },
         body: JSON.stringify({ dogId: dogId }),
     }).then((_res) => {
-        window.location.href = "/home"; // Redirect to the home page after deletion
+        // Redirect to the home page after deletion
+        window.location.href = "/home";
     }).catch(error => {
         console.error('Error deleting dog:', error);
     });

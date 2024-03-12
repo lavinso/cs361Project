@@ -11,7 +11,6 @@ def login():
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
-
         user = User.query.filter_by(email=email).first()
         if user:
             if check_password_hash(user.password, password):
@@ -22,7 +21,6 @@ def login():
                 flash('Incorrect password, try again.', category='error')
         else:
             flash('No profile matches that email.', category='error')
-
     return render_template("login.html", user=current_user)
 
 @auth.route('/logout')
@@ -41,23 +39,12 @@ def sign_up():
         last_name = request.form.get('lastName')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
-
-        user = User.query.filter_by(email=email).first()
-        if user:
-            flash('Email already exists.', category='error')
-        elif len(email) < 4:
-            flash('Email must be greater than 3 characters.', category='error')
-        elif len(first_name) < 2:
-            flash('Please enter first name.', category='error')
-        elif len(last_name) < 2:
-            flash('Please enter last name.', category='error')
-        elif password1 != password2:
-            flash('Passwords don\'t match.', category='error')
-        elif len(password1) < 7:
-            flash('Password must be at least 7 characters.', category='error')
+        error = validate_signup_form(email, first_name, last_name, password1, password2)
+        if error:
+            flash(error, category='error')
         else:
-            new_user = User(email=email, first_name=first_name, last_name=last_name, password=generate_password_hash(
-                password1, method='pbkdf2:sha256'))
+            new_user = User(email=email, first_name=first_name, last_name=last_name,
+                            password=generate_password_hash(password1, method='pbkdf2:sha256'))
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
@@ -65,3 +52,19 @@ def sign_up():
             return redirect(url_for('views.home'))
 
     return render_template("sign_up.html", user=current_user)
+
+
+def validate_signup_form(email, first_name, last_name, password1, password2):
+    user = User.query.filter_by(email=email).first()
+    if user:
+        return 'Email already exists.'
+    elif len(email) < 4:
+        return 'Email must be greater than 3 characters.'
+    elif len(first_name) < 2:
+        return 'Please enter first name.'
+    elif len(last_name) < 2:
+        return 'Please enter last name.'
+    elif password1 != password2:
+        return 'Passwords don\'t match.'
+    elif len(password1) < 7:
+        return 'Password must be at least 7 characters.'

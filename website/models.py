@@ -11,7 +11,6 @@ class Dog(db.Model):
     bordatella = db.Column(db.Date)
     rabies = db.Column(db.Date)
     dhpp = db.Column(db.Date)
-    # booleans stored differently on different databases, for now store as a string
     altered = db.Column(db.String(5)) 
     fecal_test = db.Column(db.Date)
     notes = db.Column(db.String(10000))
