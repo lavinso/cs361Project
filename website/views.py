@@ -52,42 +52,65 @@ def contact():
 @login_required
 def home():
     if request.method == 'POST':
-        # get data from form
-        name = request.form.get('name')
-        birthday = datetime.strptime(request.form.get('birthday'), '%Y-%m-%d').date()
-        breed = request.form.get('breed')
-        sex = request.form.get('sex')
-        bordatella = datetime.strptime(request.form.get('bordatella'), '%Y-%m-%d').date()
-        rabies = datetime.strptime(request.form.get('rabies'), '%Y-%m-%d').date()
-        dhpp = datetime.strptime(request.form.get('dhpp'), '%Y-%m-%d').date()
-        altered = request.form.get('altered')
-        fecal_test = datetime.strptime(request.form.get('fecalTest'), '%Y-%m-%d').date()
-        notes = request.form.get('notes')
+        data = get_form_data(request.form)
+        if not data:
+            return
+        if not validate_form_data(data):
+            return
+        add_new_dog(data)
+        flash('Dog added! Please call us at (206) 789-1010 to book an evaluation', category='success')
+        return redirect(url_for('views.home'))
 
-        # validate form entries
-        if len(name) < 1:
-            flash('Name is too short!', category='error')
-        elif len(name) > 150:
-            flash('Name is too long! Please make less than 150 characters', category='error')
-        if len(breed) < 1:
-            flash('Breed is too short!', category='error')
-        elif len(breed) > 75:
-            flash('Breed is too short!', category='error')
-        if len(notes) > 10000:
-            flash('Additional notes are too long!', category='error')
-        else:
-            #provide schema for new dog
-            new_dog = Dog(name=name, user_id=current_user.id, birthday=birthday, breed=breed, sex=sex,
-                        bordatella=bordatella, rabies=rabies, dhpp=dhpp,
-                        altered=altered, fecal_test=fecal_test, notes=notes)
-            # add new dog
-            db.session.add(new_dog)
-            db.session.commit()
+    vaccine_records = prepare_vaccine_records()
+    send_vaccine_records(vaccine_records)
 
-            flash('Dog added!', category='success')
-            return redirect(url_for('views.home'))
+    return render_template("home.html", user=current_user)
 
-    # Prepare vaccine records for each dog
+
+def get_form_data(form):
+    return {
+        'name': form.get('name'),
+        'birthday': datetime.strptime(form.get('birthday'), '%Y-%m-%d').date(),
+        'breed': form.get('breed'),
+        'sex': form.get('sex'),
+        'bordatella': datetime.strptime(form.get('bordatella'), '%Y-%m-%d').date(),
+        'rabies': datetime.strptime(form.get('rabies'), '%Y-%m-%d').date(),
+        'dhpp': datetime.strptime(form.get('dhpp'), '%Y-%m-%d').date(),
+        'altered': form.get('altered'),
+        'fecal_test': datetime.strptime(form.get('fecalTest'), '%Y-%m-%d').date(),
+        'notes': form.get('notes')
+    }
+
+
+def validate_form_data(data):
+    if len(data['name']) < 1:
+        flash('Name is too short!', category='error')
+        return False
+    elif len(data['name']) > 150:
+        flash('Name is too long! Please make less than 150 characters', category='error')
+        return False
+    if len(data['breed']) < 1:
+        flash('Breed is too short!', category='error')
+        return False
+    elif len(data['breed']) > 75:
+        flash('Breed is too long!', category='error')
+        return False
+    if len(data['notes']) > 10000:
+        flash('Additional notes are too long!', category='error')
+        return False
+    return True
+
+
+def add_new_dog(data):
+    new_dog = Dog(name=data['name'], user_id=current_user.id, birthday=data['birthday'],
+                  breed=data['breed'], sex=data['sex'], bordatella=data['bordatella'],
+                  rabies=data['rabies'], dhpp=data['dhpp'], altered=data['altered'],
+                  fecal_test=data['fecal_test'], notes=data['notes'])
+    db.session.add(new_dog)
+    db.session.commit()
+
+
+def prepare_vaccine_records():
     vaccine_records = []
     if current_user.dogs:
         for dog in current_user.dogs:
@@ -98,36 +121,30 @@ def home():
                 "dhpp": dog.dhpp.strftime('%Y-%m-%d'),
                 "altered": dog.altered,
                 "fecal_test": dog.fecal_test.strftime('%Y-%m-%d')
-                }
+            }
             vaccine_records.append(record)
 
-        # Write vaccine records to JSON file
         with open("vaccineRecords.JSON", "w") as outfile:
             json.dump(vaccine_records, outfile)
 
-        # Send vaccine records to microservice
-        context = zmq.Context()
+    return vaccine_records
 
-        #  Socket to talk to server
+
+def send_vaccine_records(vaccine_records):
+    if vaccine_records:
+        context = zmq.Context()
         print("Connecting to local server…")
         socket = context.socket(zmq.REQ)
         socket.connect("tcp://localhost:5555")
-
-        f = open('vaccineRecords.JSON')
-
-        data = json.load(f)
-
+        with open('vaccineRecords.JSON') as f:
+            data = json.load(f)
         print(f"Sending request... {data}")
         socket.send_json(data)
-
-        #  Get the reply.
         message = socket.recv().decode()
         print(f"Received reply: {message}")
-
-        # flash reply on home screen
         flash(message, 'success')
 
-    return render_template("home.html", user=current_user)
+
 
 @views.route('/delete-dog', methods=['POST'])
 def delete_dog():
@@ -147,23 +164,26 @@ def update_dog(dog_id):
     dog = Dog.query.get_or_404(dog_id)
 
     if request.method == 'POST':
-        # Update dog's information based on the submitted form data
-        dog.name = request.form.get('name')
-        dog.birthday = datetime.strptime(request.form.get('birthday'), '%Y-%m-%d').date()
-        dog.breed = request.form.get('breed')
-        dog.sex = request.form.get('sex')
-        dog.bordatella = datetime.strptime(request.form.get('bordatella'), '%Y-%m-%d').date()
-        dog.rabies = datetime.strptime(request.form.get('rabies'), '%Y-%m-%d').date()
-        dog.dhpp = datetime.strptime(request.form.get('dhpp'), '%Y-%m-%d').date()
-        dog.altered = request.form.get('altered')
-        dog.fecal_test = datetime.strptime(request.form.get('fecalTest'), '%Y-%m-%d').date()
-        dog.notes = request.form.get('notes')
-
-        # Commit changes to the database
-        db.session.commit()
-
+        update_dog_info(dog)
         flash('Dog information updated successfully!', category='success')
         return redirect(url_for('views.home'))
 
     # Render the update form with the dog's current information
     return render_template('update_dog.html', dog=dog, user=current_user)
+
+
+def update_dog_info(dog):
+    """
+    Updates the dog's information based on the submitted form data.
+    """
+    dog.name = request.form.get('name')
+    dog.birthday = datetime.strptime(request.form.get('birthday'), '%Y-%m-%d').date()
+    dog.breed = request.form.get('breed')
+    dog.sex = request.form.get('sex')
+    dog.bordatella = datetime.strptime(request.form.get('bordatella'), '%Y-%m-%d').date()
+    dog.rabies = datetime.strptime(request.form.get('rabies'), '%Y-%m-%d').date()
+    dog.dhpp = datetime.strptime(request.form.get('dhpp'), '%Y-%m-%d').date()
+    dog.altered = request.form.get('altered')
+    dog.fecal_test = datetime.strptime(request.form.get('fecalTest'), '%Y-%m-%d').date()
+    dog.notes = request.form.get('notes')
+    db.session.commit()

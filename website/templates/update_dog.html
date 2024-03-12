@@ -4,6 +4,9 @@
 
 <!-- Update dog form -->
      <h2>Update {{dog.name}}</h2>
+        <p>Please update your dog's information using the form below and click update to edit your dogs profile.
+          Feel free to change only the field that needs to be updated and leave the rest as is. You may cancel at any
+        time and your dogs profile will remain unchanged. </p>
   <form class="form-newdog" method="POST" enctype="multipart/form-data">
     <div class="row">
     <div class="col">
@@ -81,7 +84,8 @@
     <textarea class="form-control" id="notes" name="notes" placeholder="Enter any additional information we need to know about your dog" rows="3"></textarea>
   </div>
     <div align="left">
-    <button type="submit" class="btn btn-primary">Update Dog</button>
+    <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to update?')" >Update</button>
+      <a href="{{ url_for('views.home') }}" class="btn btn-secondary">Cancel</a>
   </div>
     </div>
 </form>
