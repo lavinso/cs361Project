@@ -8,6 +8,7 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    """ Renders login page. Flashes success or error messages based on login form data """
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
@@ -26,6 +27,7 @@ def login():
 @auth.route('/logout')
 @login_required
 def logout():
+    """ Log's user out of site. Renders login page and success message when user is logged out. """
     logout_user()
     flash('You are now logged out!', category='success')
     return redirect(url_for('auth.login'))
@@ -33,6 +35,7 @@ def logout():
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
+    """ Renders and handles sign up page for new user. """
     if request.method == 'POST':
         email = request.form.get('email')
         first_name = request.form.get('firstName')
@@ -51,6 +54,7 @@ def sign_up():
 
 
 def validate_signup_form(email, first_name, last_name, password1, password2):
+    """ Validates form data from sign up form. """
     user = User.query.filter_by(email=email).first()
     if user:
         return 'Email already exists.'
@@ -65,9 +69,11 @@ def validate_signup_form(email, first_name, last_name, password1, password2):
     elif len(password1) < 7:
         return 'Password must be at least 7 characters.'
 
+
 def create_user(email, first_name, last_name, password):
-        new_user = User(email=email, first_name=first_name, last_name=last_name,
-                        password=generate_password_hash(password, method='pbkdf2:sha256'))
-        db.session.add(new_user)
-        db.session.commit()
-        login_user(new_user, remember=True)
+    """ Adds new user to database using information gathered from sign up page """
+    new_user = User(email=email, first_name=first_name, last_name=last_name,
+                    password=generate_password_hash(password, method='pbkdf2:sha256'))
+    db.session.add(new_user)
+    db.session.commit()
+    login_user(new_user, remember=True)

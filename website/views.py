@@ -13,34 +13,43 @@ views = Blueprint('views', __name__)
 # general views without login
 @views.route('/')
 def index():
+    """ Renders website Home Page for all users """
     return render_template("index.html", user=current_user)
 
 @views.route('/location.html')
 def location():
+    """ Renders website Location and Hours page """
     return render_template("location.html", user=current_user)
 
 @views.route('/pricing.html')
+
 def pricing():
+    """ Renders website Pricing page """
     return render_template("pricing.html", user=current_user)
 
 @views.route('/faq.html')
 def faq():
+    """ Renders website FAQ page with frequently asked questions """
     return render_template("faq.html", user=current_user)
 
 @views.route('/daycare.html')
 def daycare():
+    """ Renders website Daycare page, displaying information about daycare services """
     return render_template("daycare.html", user=current_user)
 
 @views.route('/boarding.html')
 def boarding():
+    """ Renders website Boarding page, displaying information about boarding services """
     return render_template("boarding.html", user=current_user)
 
 @views.route('/grooming.html')
 def grooming():
+    """ Renders website Grooming page, displaying information about grooming services """
     return render_template("grooming.html", user=current_user)
 
 @views.route('/contact.html', methods=['GET', 'POST'])
 def contact():
+    """ Renders website contact page and handles contact form submission """
     if request.method == 'POST':
         flash('Thank you for your message. We will get back to you as soon as we can. If you need immediate assistance, please call us at (206)789-1010.', category='success')
         return render_template("index.html", user=current_user)
@@ -51,6 +60,7 @@ def contact():
 @views.route('/home', methods=['GET', 'POST'])
 @login_required
 def home():
+    """ Renders user profile home page and handles add dog form submission """
     if request.method == 'POST':
         data = get_form_data(request.form)
         if not data:
@@ -68,6 +78,7 @@ def home():
 
 
 def get_form_data(form):
+    """ Extracts data from add dog form and prepares it to be used for adding a new dog """
     return {
         'name': form.get('name'),
         'birthday': datetime.strptime(form.get('birthday'), '%Y-%m-%d').date(),
@@ -83,6 +94,8 @@ def get_form_data(form):
 
 
 def validate_form_data(data):
+    """ Validates the add dog form data. Name must be between 1 and 150 characters,
+     breed must be between 1 and 75 characters, and notes must be under 10000 characters """
     if len(data['name']) < 1:
         flash('Name is too short!', category='error')
         return False
@@ -102,6 +115,7 @@ def validate_form_data(data):
 
 
 def add_new_dog(data):
+    """ Adds dog with data from add dog form to database """
     new_dog = Dog(name=data['name'], user_id=current_user.id, birthday=data['birthday'],
                   breed=data['breed'], sex=data['sex'], bordatella=data['bordatella'],
                   rabies=data['rabies'], dhpp=data['dhpp'], altered=data['altered'],
@@ -111,6 +125,7 @@ def add_new_dog(data):
 
 
 def prepare_vaccine_records():
+    """ prepares vaccine records for sending to microservice for validation """
     vaccine_records = []
     if current_user.dogs:
         for dog in current_user.dogs:
@@ -131,6 +146,10 @@ def prepare_vaccine_records():
 
 
 def send_vaccine_records(vaccine_records):
+    """ Sends vaccine records to microservice for processing. Receives message from microservice, which
+    includes the name and due date of any vaccine that is overdue or will be due in the the next 30 days.
+    If no vaccines are overdue or due in the next 30 days, microservices sends message that no vaccines
+    are due. """
     if vaccine_records:
         context = zmq.Context()
         print("Connecting to local server…")
@@ -145,10 +164,10 @@ def send_vaccine_records(vaccine_records):
         flash(message, 'success')
 
 
-
 @views.route('/delete-dog', methods=['POST'])
 def delete_dog():
-    data = request.json  # this function expects a JSON from the INDEX.js file
+    """ Deletes selected dog from database """
+    data = request.json
     dog_id = data['dogId']
     print(dog_id, "dog_id")
     dog = Dog.query.get(dog_id)
@@ -161,6 +180,7 @@ def delete_dog():
 @views.route('/update-dog/<int:dog_id>', methods=['GET', 'POST'])
 @login_required
 def update_dog(dog_id):
+    """ Renders users update dog page within their account """
     dog = Dog.query.get_or_404(dog_id)
 
     if request.method == 'POST':
@@ -173,9 +193,7 @@ def update_dog(dog_id):
 
 
 def update_dog_info(dog):
-    """
-    Updates the dog's information based on the submitted form data.
-    """
+    """ Updates the dog's information based on the data submitted on the form on the update dog page. """
     dog.name = request.form.get('name')
     dog.birthday = datetime.strptime(request.form.get('birthday'), '%Y-%m-%d').date()
     dog.breed = request.form.get('breed')
